@@ -1,0 +1,21 @@
+{
+    "name": "app/myapp",
+    "require": {
+        "doctrine/orm": "^2.11",
+        "symfony/cache": "^6.0",
+        "doctrine/dbal": "^3.3",
+        "doctrine/annotations": "^1.13"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\Myapp\\": "src/"
+        },
+        "classmap": [
+            "src"
+        ]
+    },
+    "authors": [{
+        "name": "Clemy-beep",
+        "email": "clementine.digny@gmail.com"
+    }]
+}
