@@ -31,7 +31,7 @@
             <th>Lastname</th>
             <th>Email</th>
         </tr>
-
+        <a href="http://127.0.0.6/delete-member/status=" . $memberClass . "id=" . id">Delete</a>
         <?php
         //print("<pre>".print_r($members,true)."</pre>");
 
@@ -40,17 +40,20 @@
             $memberLastName = $admin->getLastName();
             $memberEmail = $admin->getEmail();
             $memberId = $admin->getId();
+            $memberClass = (get_class($admin) === "App\Entity\User") ? "User" : "Admin";
             echo '
             <tr>
                 <td>' . $memberFirstName . '</td>
                 <td>' . $memberLastName . '</td>
                 <td>' . $memberEmail . '</td>
-                <td><a href="http://127.0.0.6/admin-update/' . $memberId . '">Edit</a></td>
+                <td><a href="http://127.0.0.6/member-update/status=' . $memberClass . '-id=' . $memberId . '">Edit</a></td>
+                <td><a href="http://127.0.0.6/delete-member/status=' . $memberClass . '-' . 'id=' . $memberId . '">Delete</a></td>
             </tr>
             ';
         }
         ?>
     </table>
+
 </body>
 
 </html>

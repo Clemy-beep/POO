@@ -23,7 +23,7 @@
 
 <body>
     <?php include './src/View/Templates/header.html'; ?>
-    <h1>All Admins</h1>
+    <h1>All Users</h1>
     <table>
         <title>Members</title>
         <tr>
@@ -39,13 +39,17 @@
             $memberFirstName = $user->getFirstName();
             $memberLastName = $user->getLastName();
             $memberEmail = $user->getEmail();
-            echo "
+            $memberId = $user->getId();
+            $memberClass = (get_class($user) === "App\Entity\User") ? "User" : "Admin";
+            echo '
             <tr>
-                <td>$memberFirstName</td>
-                <td>$memberLastName</td>
-                <td>$memberEmail</td>
+                <td>' . $memberFirstName . '</td>
+                <td>' . $memberLastName . '</td>
+                <td>' . $memberEmail . '</td>
+                <td><a href="http://127.0.0.6/member-update/status=' . $memberClass . '-id=' . $memberId . '">Edit</a></td>
+                <td><a href="http://127.0.0.6/delete-member/status=' . $memberClass . '-' . 'id=' . $memberId . '">Delete</a></td>
             </tr>
-            ";
+            ';
         }
         ?>
     </table>

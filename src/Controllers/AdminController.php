@@ -10,7 +10,7 @@ use Exception;
 
 class AdminController
 {
-    public static function fetchAdmins()
+    public static function fetchAdmins(): array | false
     {
         $em = EntityManagerHelper::getEntityManager();
         $adminRepository = new AbstractRepository($em, new ClassMetadata("App\Entity\Admin"));
@@ -22,15 +22,17 @@ class AdminController
             $msg = $e->getMessage();
             echo "Erro $code : $msg";
         }
+        return false;
     }
-    public static function showAdmins (array $admins){
+    public static function showAdmins(array $admins)
+    {
         include './src/View/showAdmins.php';
     }
     public static function showAdminForm()
     {
         include './src/View/createAdmin.php';
     }
-    public static function createAdmin()
+    public static function createAdmin(): void
     {
         $em = EntityManagerHelper::getEntityManager();
         if (isset($_POST['serviceId'], $_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['age'], $_POST['lvl'])) {
@@ -52,7 +54,18 @@ class AdminController
         }
     }
 
-    public static function updateAdmin()
+    public static function deleteAdmin($id)
     {
+        $em = EntityManagerHelper::getEntityManager();
+        $adminRepository = new AbstractRepository($em, new ClassMetadata("App\Entity\Admin"));
+        $admin = $adminRepository->find($id);
+        $em->remove($admin);
+        try {
+            $em->flush();
+        } catch (\Throwable $th) {
+            $code = $th->getCode();
+            $msg = $th->getMessage();
+            echo "Erro $code : $msg";
+        }
     }
 }

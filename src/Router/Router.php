@@ -53,7 +53,8 @@ class Router
             }
         }
         // echo "<pre>" . print_r($this->routes, true) . "</pre>";
-        // throw new RouterException('No matching routes');
+        http_response_code(404);
+        echo "Page not found.";
     }
 
     public function url($name, $params = [])

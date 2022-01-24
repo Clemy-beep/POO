@@ -38,18 +38,21 @@
         foreach ($members as $key => $member) {
             $memberFirstName = $member->getFirstName();
             $memberLastName = $member->getLastName();
-
+            $memberId = $member->getId();
             $memberClass = (get_class($member) === "App\Entity\User") ? "User" : "Admin";
-            echo "
+            echo '
             <tr>
-                <td>$memberFirstName</td>
-                <td>$memberLastName</td>
-                <td>$memberClass</td>
+                <td>' . $memberFirstName . '</td>
+                <td>' . $memberLastName . '</td>
+                <td>' . $memberClass . '</td>
+                <td><a href="http://127.0.0.6/member-update/status=' . $memberClass . '-id=' . $memberId . '">Edit</a></td>
+                <td><a href="http://127.0.0.6/delete-member/status=' . $memberClass . '-' . 'id=' . $memberId . '">Delete</a></td>
             </tr>
-            ";
+            ';
         }
         ?>
     </table>
 </body>
+
 
 </html>

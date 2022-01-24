@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Entity\User;
+use App\Entity\Member;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -28,7 +28,7 @@ class Article
     private string $content;
 
     /** 
-     * @ORM\ManyToOne(targetEntity="member",cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Member")
      * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
      * 
      */

@@ -11,7 +11,7 @@
 <body>
     <?php include './src/View/Templates/header.html'; ?>
 
-    <h1>Create a new Admin</h1>
+    <h1>Create a new User</h1>
     <form method="post">
         <label for="serviceId">Service number</label><br>
         <input type="number" name="serviceId" id="serviceId" required><br>

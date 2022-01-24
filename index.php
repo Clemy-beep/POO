@@ -5,6 +5,7 @@ require "bootstrap.php";
 
 use App\Controllers\AppController;
 use App\Controllers\AdminController;
+use App\Controllers\ArticleController;
 use App\Controllers\MemberController;
 use App\Controllers\UserController;
 use App\Router\Router;
@@ -19,9 +20,18 @@ $router->get('/', function () {
 
 //MemberRoutes
 
-$router->get('/all-members', function () {
+$router->get('/members-all', function () {
     $members = MemberController::fetchMember();
     MemberController::showMember($members);
+});
+$router->get('/member-update/status=:memberClass-id=:id', function ($memberClass, $id) {
+    MemberController::showUpdateMemberForm($memberClass, $id);
+});
+$router->post('/member-update/status=:memberClass-id=:id', function ($memberClass, $id) {
+    MemberController::updateMember($memberClass, $id);
+});
+$router->get('/delete-member/status=:memberClass-id=:id', function ($memberClass, $id) {
+    MemberController::deleteMember($memberClass, $id);
 });
 
 //Admin routes
@@ -32,13 +42,11 @@ $router->get('/create-member/admin', function () {
 $router->post('/create-member/admin', function () {
     AdminController::createAdmin();
 });
-$router->get('/all-admins', function () {
+$router->get('admins-all', function () {
     $admins = AdminController::fetchAdmins();
     AdminController::showAdmins($admins);
 });
-$router->get('/admin-update/:id', function($id){
-    echo "You are updating admin n°$id";
-});
+
 
 //User routes
 
@@ -48,11 +56,21 @@ $router->get('/create-member/user', function () {
 $router->post('/create-member/user', function () {
     UserController::createUser();
 });
-$router->get('/all-users', function () {
+$router->get('/users-all', function () {
     $users = UserController::fetchUsers();
     UserController::showUsers($users);
 });
 
 //Articles routes
+$router->get('/articles-all', function(){
+    $articles = ArticleController::fetchArticles();
+    ArticleController::showArticles($articles);
+});
+$router->get('/article/:id', function($id){
+    ArticleController::showThisArticle($id);
+});
+$router->get('/article-modify/:id', function($id){
+    ArticleController::showThisArticleForm($id);
+});
 
 $router->run();
