@@ -28,7 +28,7 @@ class Article
     private string $content;
 
     /** 
-     * @ORM\ManyToOne(targetEntity="App\Entity\Member")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Member", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
      * 
      */

@@ -62,15 +62,27 @@ $router->get('/users-all', function () {
 });
 
 //Articles routes
+$router->get('/article-modify/:id', function($id){
+    ArticleController::showThisArticleForm($id);
+});
+$router->post('/article-modify/:id', function($id){
+    ArticleController::modifyThisArticle($id);
+});
+$router->get('/article-delete/:id', function($id){
+    ArticleController::deleteArticle($id);
+});
+$router->get('/article-create', function(){
+    ArticleController::showArticleForm();
+});
+$router->post('/article-create', function(){
+    ArticleController::createArticle();
+});
 $router->get('/articles-all', function(){
     $articles = ArticleController::fetchArticles();
     ArticleController::showArticles($articles);
 });
 $router->get('/article/:id', function($id){
     ArticleController::showThisArticle($id);
-});
-$router->get('/article-modify/:id', function($id){
-    ArticleController::showThisArticleForm($id);
 });
 
 $router->run();

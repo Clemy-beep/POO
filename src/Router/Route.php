@@ -17,7 +17,7 @@ class Route
         $this->callable = $callable;
     }
 
-    public function match($url): bool
+    public function matche ($url): bool
     {
         $url = trim($url, '/');
         $path = preg_replace_callback('#:([\w]+)#', [$this, 'paramMatch'], $this->path);
@@ -29,6 +29,7 @@ class Route
         $this->matches = $matches;  // On sauvegarde les paramètre dans l'instance pour plus tard
         return true;
     }
+
 
     public function with($param, $regex): self
     {
