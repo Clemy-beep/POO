@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <?php include './src/View/Templates/header.html'; ?>
+    <?php include './src/View/Templates/anonymous_header.html'; ?>
     <h1>This is the homepage</h1>
 </body>
 

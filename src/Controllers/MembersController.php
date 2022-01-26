@@ -10,6 +10,18 @@ use Exception;
 
 class MemberController
 {
+    public static function createMember()
+    {
+        if (isset($_POST)) {
+            $_POST = array_map('trim', array_map('strip_tags', $_POST));
+            var_dump($_POST);
+            if (isset($_POST['lvl'])) {
+                AdminController::createAdmin();
+            } else if (isset($_POST['datas'])) {
+                UserController::createUser();
+            };
+        } else throw new \Throwable('No data provided.');
+    }
     public static function fetchMember()
     {
         $em = EntityManagerHelper::getEntityManager();
@@ -29,44 +41,14 @@ class MemberController
     }
     public static function updateMember($memberClass, $id)
     {
-        $em = EntityManagerHelper::getEntityManager();
-        if ($memberClass === "User") {
-            $userRepository = new AbstractRepository($em, new ClassMetadata("App\Entity\User"));
-            $user = $userRepository->find($id);
-            $user->setFirstName($_POST['firstname']);
-            $user->setLastName($_POST['lastname']);
-            $user->setServiceId($_POST['serviceId']);
-            $user->setAge($_POST['age']);
-            $user->setEmail($_POST['email']);
-            $user->setPersonalDatas($_POST['datas'] ?? false);
-            try {
-                $em->flush();
-                echo "User n°$id updated";
-                echo '<a href="http://127.0.0.6/">Back to home</a>';
-            } catch (Exception $e) {
-                $msg = $e->getMessage();
-                $code = $e->getCode();
-                echo "Error $code : $msg";
+        if (isset($_POST)) {
+            $_POST = array_map('trim', array_map('strip_tags', $_POST));
+            if ($memberClass === "User") {
+                UserController::updateUser($id);
+            } else {
+                AdminController::updateAdmin($id);
             }
-        } else {
-            $adminRepository = new AbstractRepository($em, new ClassMetadata("App\Entity\Admin"));
-            $admin = $adminRepository->find($id);
-            $admin->setFirstName($_POST['firstname']);
-            $admin->setLastName($_POST['lastname']);
-            $admin->setServiceId($_POST['serviceId']);
-            $admin->setAge($_POST['age']);
-            $admin->setEmail($_POST['email']);
-            $admin->setLevel($_POST['lvl']);
-            try {
-                $em->flush();
-                echo "$admin->getFirstName() updated";
-                echo '<a href="http://127.0.0.6/">Back to home</a>';
-            } catch (Exception $e) {
-                $msg = $e->getMessage();
-                $code = $e->getCode();
-                echo "Error $code : $msg";
-            }
-        }
+        } else throw new \Throwable('No data found.');
     }
     public static function deleteMember($memberClass, $id)
     {

@@ -8,4 +8,10 @@ class AppController
     {
         include './src/View/homepage.php';
     }
+    public static function showSignIn(){
+        //include './src/View/createMember.php';
+    }
+    public static function showSignUp(){
+        include './src/View/createMember.php';
+    }
 }

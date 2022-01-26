@@ -12,77 +12,85 @@ use App\Router\Router;
 
 $router = new Router($_GET['url']);
 
-//Home
+//Anonymous routes
 
 $router->get('/', function () {
     AppController::index();
 });
-
-//MemberRoutes
-
-$router->get('/members-all', function () {
-    $members = MemberController::fetchMember();
-    MemberController::showMember($members);
+$router->get('/sign-in', function () {
 });
-$router->get('/member-update/status=:memberClass-id=:id', function ($memberClass, $id) {
-    MemberController::showUpdateMemberForm($memberClass, $id);
+$router->post('/sign-in', function () {
 });
-$router->post('/member-update/status=:memberClass-id=:id', function ($memberClass, $id) {
-    MemberController::updateMember($memberClass, $id);
+$router->get('/sign-up', function () {
+    AppController::showSignUp();
 });
-$router->get('/delete-member/status=:memberClass-id=:id', function ($memberClass, $id) {
-    MemberController::deleteMember($memberClass, $id);
+$router->post('/sign-up', function () {
+    MemberController::createMember();
 });
 
-//Admin routes
+// //MemberRoutes
 
-$router->get('/create-member/admin', function () {
-    AdminController::showAdminForm();
-});
-$router->post('/create-member/admin', function () {
-    AdminController::createAdmin();
-});
-$router->get('admins-all', function () {
-    $admins = AdminController::fetchAdmins();
-    AdminController::showAdmins($admins);
-});
+// $router->get('/members-all', function () {
+//     $members = MemberController::fetchMember();
+//     MemberController::showMember($members);
+// });
+// $router->get('/member-update/status=:memberClass-id=:id', function ($memberClass, $id) {
+//     MemberController::showUpdateMemberForm($memberClass, $id);
+// });
+// $router->post('/member-update/status=:memberClass-id=:id', function ($memberClass, $id) {
+//     MemberController::updateMember($memberClass, $id);
+// });
+// $router->get('/delete-member/status=:memberClass-id=:id', function ($memberClass, $id) {
+//     MemberController::deleteMember($memberClass, $id);
+// });
+
+// //Admin routes
+
+// $router->get('/create-member/admin', function () {
+//     AdminController::showAdminForm();
+// });
+// $router->post('/create-member/admin', function () {
+//     AdminController::createAdmin();
+// });
+// $router->get('admins-all', function () {
+//     $admins = AdminController::fetchAdmins();
+//     AdminController::showAdmins($admins);
+// });
 
 
-//User routes
+// //User routes
 
-$router->get('/create-member/user', function () {
-    UserController::showUserForm();
-});
-$router->post('/create-member/user', function () {
-    UserController::createUser();
-});
-$router->get('/users-all', function () {
-    $users = UserController::fetchUsers();
-    UserController::showUsers($users);
-});
+// $router->get('/create-member/user', function () {
+//     UserController::showUserForm();
+// });
+// $router->post('/create-member/user', function () {
+//     UserController::createUser();
+// });
+// $router->get('/users-all', function () {
+//     $users = UserController::fetchUsers();
+//     UserController::showUsers($users);
+// });
 
-//Articles routes
-$router->get('/article-modify/:id', function($id){
-    ArticleController::showThisArticleForm($id);
-});
-$router->post('/article-modify/:id', function($id){
-    ArticleController::modifyThisArticle($id);
-});
-$router->get('/article-delete/:id', function($id){
-    ArticleController::deleteArticle($id);
-});
-$router->get('/article-create', function(){
-    ArticleController::showArticleForm();
-});
-$router->post('/article-create', function(){
-    ArticleController::createArticle();
-});
-$router->get('/articles-all', function(){
-    $articles = ArticleController::fetchArticles();
-    ArticleController::showArticles($articles);
-});
-$router->get('/article/:id', function($id){
-    ArticleController::showThisArticle($id);
-});
+// //Articles routes
+// $router->get('/article-modify/:id', function ($id) {
+//     ArticleController::showThisArticleForm($id);
+// });
+// $router->post('/article-modify/:id', "App\Controllers\ArticleController@showThisArticle");
+// $router->get('/article-delete/:id', function ($id) {
+//     ArticleController::deleteArticle($id);
+// });
+// $router->get('/article-create', function () {
+//     ArticleController::showArticleForm();
+// });
+// $router->post('/article-create', function () {
+//     ArticleController::createArticle();
+// });
+// $router->get('/articles-all', function () {
+//     $articles = ArticleController::fetchArticles();
+//     ArticleController::showArticles($articles);
+// });
+// $router->get('/article/:id', function ($id) {
+//     ArticleController::showThisArticle($id);
+// });
 
 $router->run();
